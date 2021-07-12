@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="typeahead.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $("input.typeahead").typeahead({
+          name: "countries",
+          remote: "http://localhost:3000/search?key=%QUERY",
+          limit: 10,
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div class="container mainPage">
+      <div class="row col-12">
+        <h2><%= title %></h2>
+      </div>
+      <div class="row col-12">
+        <div class="p-2">
+          <a href="/" class="btn BackToHome">Домой</a>
+        </div>
+
+        <div class="dropdown p-2">
+          <button
+            class="btn download dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            Данные
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="/takings">Доходы</a>
+            <a class="dropdown-item" href="/expenses">Расходы</a>
+            <a class="dropdown-item" href="/salaries">Зарплаты</a>
+          </div>
+        </div>
+
+        <div class="dropdown p-2">
+          <button
+            class="btn download dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            Действия
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="/add">Добавить запись</a>
+            <a class="dropdown-item" href="/search"> Поисковый инструмент</a>
+          </div>
+        </div>
+
+        <div class="dropdown p-2">
+          <button
+            class="btn download dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            Скачать
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="/download">Вывод общих данных</a>
+            <a class="dropdown-item" href="/download-month"
+              >Вывод данных за последний месяц</a
+            >
+            <a class="dropdown-item" href="/download-year"
+              >Вывод данных за последний год</a
+            >
+          </div>
+        </div>
+
+        <div class="dropdown p-2">
+          <button
+            class="btn download dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            Сортировать
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="/sort-by-name"
+              >Сортировать по имени</a
+            >
+            <a class="dropdown-item" href="/sort-by-surname"
+              >Сортировать по фамилии</a
+            >
+            <a class="dropdown-item" href="/sort-by-pid"
+              >Сортировать по персональному коду</a
+            >
+            <a class="dropdown-item" href="/sort-by-email"
+              >Сортировать по почте</a
+            >
+            <a class="dropdown-item" href="/sort-by-service"
+              >Сортировать по услугам</a
+            >
+            <a class="dropdown-item" href="/sort-by-price"
+              >Сортировать по ценам</a
+            >
+            <a class="dropdown-item" href="/sort-by-date"
+              >Сортировать по дате</a
+            >
+          </div>
+        </div>
+
+        <table
+          class="table table-striped table-bordered table-dark table-responsive-lg"
+        >
+          <thead>
+            <tr>
+              <th scope="col" class="white">Имя</th>
+              <th scope="col" class="white">Фамилия</th>
+              <th scope="col" class="white">Персональный код</th>
+              <th scope="col" class="white">Почта</th>
+              <th scope="col" class="white">Услуга</th>
+              <th scope="col" class="white">Цена</th>
+              <th scope="col" class="white">Дата</th>
+              <th scope="col" colspan="2" class="white">Действия</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% users.forEach(function(user){ %>
+            <tr class="white">
+              <th scope="row"><%= user.first_name %></th>
+              <td><%= user.last_name %></td>
+              <td><%= user.personal_id_code %></td>
+              <td><%= user.email %></td>
+              <td><%= user.service %></td>
+              <td><%= user.price %> EUR</td>
+              <td><%= user.date %></td>
+              <td>
+                <a href="edit/<%= user.id %>" class="btn Edit"
+                  >Изменить запись</a
+                >
+              </td>
+              <td>
+                <a href="delete/<%= user.id %>" class="btn Delete"
+                  >Удалить запись</a
+                >
+              </td>
+            </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
